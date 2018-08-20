@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MEDICAL app</title>
+        <meta name="description" content="Mediacal">
+        <meta name="robots" content="all">
+        <meta name="expires" content="5 hours">
+        <meta name="keywords" content="">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="icon" href="" type="image/gif" sizes="16x16"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+        <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+    </head>
+<body class="grey lighten-2">
+    <!-- header -->
+  <nav class="indigo">
+      <div class="container">
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Savics</a>
+    </div>
+</div>
+    </nav>
+    <div class="container">
+        <div class="row">
+                <div class="row">
+                    <!-- starting form -->
+            <form class="col s12 m12 l8 push-l2 white z-depth-3">
+                    <h1>New Medial Record</h1>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input  id="first_name" value="" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" value="" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <div class="col s6">
+                            <input name="gender" value="male" type="radio" id="male" />
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="col s6">
+                            <input name="gender" value="female" type="radio" id="female" />
+                            <label for="female">Female</label>
+                        </div>
+                    </div>
+                    <div class="input-field col s6">                       
+                        <input id="age" type="number" value="" class="validate">
+                        <label for="age">age</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                            <select name="city" id="city">
+                            <option value=""  selected>Choose your city</option>
+                            <option value="Kigali">Kigali</option>
+                            <option value="Bujumbura">Bujumbura</option>
+                            <option value="Kampala">Kampala</option>
+                            </select>
+                            <label>city</label>
+                    </div>                
+                    <div class="input-field col s6 m6 l6">
+                            <select name="country" id="country">
+                            <option value=""  >Choose your country</option>
+                            <option value="Rwanda" selected>Rwanda</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Uganda">Uganda</option>
+                            </select>
+                            <label>Country</label>
+                    </div>                
+                </div>
+                
+                <div class="row">
+                    <div class="col s4 m4 l4">
+                        Living with Diabetes?
+                    </div>
+                    <div class="col s8 m8 l8">
+                            <div class="col s4">
+                                <input name="diabetes" value="Yes" type="radio" id="yes" />
+                                <label for="yes">Yes</label>
+                            </div>
+                            <div class="col s4">
+                                <input name="diabetes" value="no" type="radio" id="no" />
+                                <label for="no">No</label>
+                            </div>
+                            <div class="col s4">
+                                <input name="diabetes" value="Unknown" type="radio" id="unkown" />
+                                <label for="unkown">Unknown</label>
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                    <button class="btn indigo white-text right submit" type="submit">Save</button>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="divider grey"></div>
+                </div>
+                <div class="row">
+                    <div class="col s8 m8 l8">List of medical records</div>
+                    <div class="col s4 m4 l4">
+                        <p>
+                            <input type="checkbox" id="minors" />
+                            <label for="minors">Only minors</label>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="collection" id="records">
+                    </ul>                                    
+                </div>
+            </form>
+            <!-- end form -->
+            </div>
+        </div>
+    </div>   
+    <script>
+        $(document).ready(function() {
+            // initiate select 
+            $('select').material_select();
+
+            // create object
+            var record = {
+                first_name:'',
+                last_name: '',
+                age:'',
+                gender:'',
+                city:'',
+                country:'',
+                diabetes:'',
+            };
+            
+            //array of recors
+            var records = [];
+
+            // on submit
+            $('form').submit(function(e){
+                e.preventDefault();
+                //colect all data
+                record.first_name=$('#first_name').val();
+                record.last_name=$('#lastname_name').val();
+                record.age=$('#age').val();
+                record.gender=$('input[name=gender]').val();
+                record.city=$('select[name=city]').val();
+                record.country=$('select[name=country]').val();
+                record.diabetes=$('input[name=diabetes]').val();
+
+                records.push(record); 
+
+                display_record(record);
+                
+
+            });
+        });
+
+        function display_record(new_record){
+            $("#records").append('<li class="collection-item">'+new_record.first_name+' '+new_record.last_name+'('+new_record.gender+'), '+new_record.age+' - '+new_record.city+'('+new_record.country+')</li>');
+        }
+        
+    </script> 
+</body>
+</html>
